@@ -1,0 +1,5 @@
+scaleList,0,1,2,3
+afterIpo,90
+holdNum,10
+buyTh,20
+sellTh,100
