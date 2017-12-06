@@ -21,9 +21,9 @@ sqlFin = "SELECT NVL(F.INFO_PUB_DATE, F.END_DATE + 30) INFO_PUB_DATE, P.SEC_UNI_
          "      AND P.SEC_SMALL_TYPE_PAR = 101 AND F.INFO_PUB_DATE <= TO_DATE('{TRADE_DATE}', 'YYYY-MM-DD')"
 csMap = CodeSymbol.CodeSymbol(connStr)
 codeList, symbolList, nameList, mktList = CodeSymbol.GetAllCode(connStr)
-scaleStockCodeList = Tools.GetScaleStockCode(connStr, tradeDate=dt.datetime(2016, 2, 1))
+scaleStockCodeList = Tools.GetScaleStockCode(connStr, tradeDate=dt.datetime(2014, 2, 1))
 
-mkt = Market.Market(connStr, Tools.sqlCld, dt.datetime(2016, 1, 1))
+mkt = Market.Market(connStr, Tools.sqlCld, dt.datetime(2014, 1, 1))
 mkt.CreateDataSource(connStr, Tools.sqlPrc  , codeList        , csMap = None, fieldNum = Tools.numPrc  , label = 'price')
 mkt.CreateDataSource(connStr, Tools.sqlSi   , Tools.siCodeList, csMap = None, fieldNum = Tools.numSi   , label = 'scale index')
 mkt.CreateDataSource(connStr, sqlFin        , codeList        , csMap = None, fieldNum = 4             , label = 'net value')
@@ -47,6 +47,6 @@ ssc = allCode[0 : 100]
 # ssc = scaleStockCodeList[1][0 : 100]
 # ssc = scaleStockCodeList[2][0 : 100]
 
-stg = Strategy.Strategy(codeList, csMap, 60, mkt, ssc)
+stg = Strategy.Strategy(codeList, csMap, 200, mkt, ssc)
 mkt.AddAfterCloseReceiver(stg.NewDayHandler)
 mkt.AddAfterCloseReceiver(stg.da.NewDayHandler)

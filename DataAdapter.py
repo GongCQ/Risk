@@ -241,9 +241,9 @@ class DataAdapter:
         vldCountTotal = 1
         for group in self.stockGroup:
             # 三因子回归
-            mktRtnArr = group.index.mktRtnSrs.series
-            valRtnArr = group.index.valRtnSrs.series
-            btmRtnArr = group.index.btmRtnSrs.series
+            mktRtnArr = group.index.mktRtnSrs.GetSeries()
+            valRtnArr = group.index.valRtnSrs.GetSeries()
+            btmRtnArr = group.index.btmRtnSrs.GetSeries()
             constArr = np.ones(len(mktRtnArr))
             vldMkt = np.isfinite(mktRtnArr)
             vldVal = np.isfinite(valRtnArr)
@@ -253,7 +253,7 @@ class DataAdapter:
             vldCount = 1
             for s in range(len(group.stockList)):
                 stock = group.stockList[s]
-                stkRtnArr = stock.rtnSrs.series
+                stkRtnArr = stock.rtnSrs.GetSeries()
                 vldStk = np.isfinite(stkRtnArr)
                 vld = np.array(vldStk) * np.array(vldMkt) * np.array(vldVal) * np.array(vldBtm)
                 if sum(vld) < self.capacity * 0.75 or (mkt.crtDate - stock.firstDay).days < afterIpo:

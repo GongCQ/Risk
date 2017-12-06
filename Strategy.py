@@ -26,7 +26,7 @@ class ShrinkMat:
         self.rtnFrameVld = None
         self.validIndex = []
         for i in range(len(rtnFrame.columns)):
-            if sum(np.isfinite(rtnFrame[i].get_values())) >= minSize:
+            if sum(np.isfinite(rtnFrame[i].get_values())) >= minSize and np.isfinite(rtnFrame.iloc[-1, i]):
                 self.validIndex.append(i)
         self.rtnFrameVld = self.rtnFrame[self.validIndex]
 
@@ -116,7 +116,7 @@ class Strategy:
         shrinkMatList[3] = ShrinkMat(rtnFrm3, int(self.capacity / 2))
 
         # 1. risk optimize and trade
-        if not mkt.crtDate >= dt.datetime(2016, 6, 1):
+        if not mkt.crtDate >= dt.datetime(2015, 1, 1):
             return
         riskMatMat = [[shrinkMatList[0].covMat, shrinkMatList[0].ccmMat, shrinkMatList[0].shrinkMat],
                       [shrinkMatList[1].covMat, shrinkMatList[1].ccmMat, shrinkMatList[1].shrinkMat],

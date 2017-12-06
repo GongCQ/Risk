@@ -2,13 +2,6 @@ import numpy as np
 import scipy.optimize as opt
 import random
 
-def GetStocQuadMat(size, low, up):
-    mat = np.zeros([size, size], dtype=float)
-    for i in range(size):
-        for j in range(size):
-            mat[i][j] = random.uniform(low, up)
-    return mat
-
 class QuadOptW:
     def __init__(self, quadMat, maxW = 1.0, minW = 0.0, sumW = 1.0):
         if quadMat.shape[0] != quadMat.shape[1]:
@@ -70,6 +63,14 @@ class QuadOptW:
                     'maxMes' : resMax.message,
                     'maxIte' : resMax.nit}
         return infoDict
+
+    
+def GetStocQuadMat(size, low, up):
+    mat = np.zeros([size, size], dtype=float)
+    for i in range(size):
+        for j in range(size):
+            mat[i][j] = random.uniform(low, up)
+    return mat
 
 # for i in range(100):
 #     size = 100
