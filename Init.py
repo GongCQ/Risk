@@ -21,9 +21,9 @@ sqlFin = "SELECT NVL(F.INFO_PUB_DATE, F.END_DATE + 30) INFO_PUB_DATE, P.SEC_UNI_
          "      AND P.SEC_SMALL_TYPE_PAR = 101 AND F.INFO_PUB_DATE <= TO_DATE('{TRADE_DATE}', 'YYYY-MM-DD')"
 csMap = CodeSymbol.CodeSymbol(connStr)
 codeList, symbolList, nameList, mktList = CodeSymbol.GetAllCode(connStr)
-scaleStockCodeList = Tools.GetScaleStockCode(connStr, tradeDate=dt.datetime(2014, 2, 1))
+scaleStockCodeList = Tools.GetScaleStockCode(connStr, tradeDate=dt.datetime(2015, 2, 1))
 
-mkt = Market.Market(connStr, Tools.sqlCld, dt.datetime(2014, 1, 1))
+mkt = Market.Market(connStr, Tools.sqlCld, dt.datetime(2015, 1, 1))
 mkt.CreateDataSource(connStr, Tools.sqlPrc  , codeList        , csMap = None, fieldNum = Tools.numPrc  , label = 'price')
 mkt.CreateDataSource(connStr, Tools.sqlSi   , Tools.siCodeList, csMap = None, fieldNum = Tools.numSi   , label = 'scale index')
 mkt.CreateDataSource(connStr, sqlFin        , codeList        , csMap = None, fieldNum = 4             , label = 'net value')
